@@ -191,10 +191,6 @@ conftest test plan.json -p ../../policy/azure_location.rego
 conftest test plan.json -p ../../policy/azure_storage_secure.rego
 ```
 
-### Paso 6 — Ver el output detallado (verbose)
-
-```bash
-conftest test plan.json -p ../../policy/ --verbose
 ```
 
 ### Paso 7 — El patrón CI/CD: apply solo si conftest pasa

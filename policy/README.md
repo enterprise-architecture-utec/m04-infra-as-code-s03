@@ -84,16 +84,12 @@ Con la configuración por defecto (`eastus`, tags correctos, `cpu=0.25`, storage
 ```bash
 cd environments/dev/
 conftest test plan.json -p ../../policy/
+#conftest test plan.json -p ../../policy/ -o table
 ```
 
 Resultado esperado:
 
 ```
-PASS - plan.json - data.main.deny is undefined
-PASS - plan.json - data.main.deny is undefined
-PASS - plan.json - data.main.deny is undefined
-PASS - plan.json - data.main.deny is undefined
-
 4 tests, 4 passed, 0 warnings, 0 failures
 ```
 

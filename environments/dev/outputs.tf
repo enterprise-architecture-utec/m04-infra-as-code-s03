@@ -1,11 +1,11 @@
 output "container_app_url" {
-  description = "URL pública de la Container App. Accesible desde el navegador."
-  value       = module.container_apps.app_url
+  description = "URL pública de la Container App."
+  value       = module.container_apps.container_app_url
 }
 
 output "container_app_name" {
   description = "Nombre del Container App creado."
-  value       = module.container_apps.app_name
+  value       = module.container_apps.container_app_name
 }
 
 output "container_environment_name" {
@@ -31,11 +31,11 @@ output "log_analytics_workspace" {
 output "resumen" {
   description = "Resumen de los recursos creados por este alumno."
   value = {
-    alumno          = var.owner_alias
-    resource_group  = var.resource_group_name
-    region          = var.location
-    app_url         = module.container_apps.app_url
-    storage         = module.storage.storage_account_name
-    log_analytics   = module.log_analytics.workspace_name
+    alumno         = var.owner_alias
+    resource_group = var.resource_group_name
+    region         = var.location
+    app_url        = module.container_apps.container_app_url
+    storage        = module.storage.storage_account_name
+    log_analytics  = module.log_analytics.workspace_name
   }
 }

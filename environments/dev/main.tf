@@ -5,7 +5,7 @@
 #
 # Composición de módulos:
 #   log_analytics → container_apps  (workspace_id como input)
-#   storage       → container_apps  (storage_endpoint como input)
+#   storage       → container_apps  (storage_account_name como input)
 ##############################################################
 
 terraform {
@@ -25,12 +25,11 @@ provider "azurerm" {
 
 # ── Locals ────────────────────────────────────────────────────
 locals {
-  # Sufijo único por alumno: alias + entorno + hash corto del RG
-  # Evita colisiones entre los 34 alumnos en la misma suscripción
+  # Sufijo único por alumno: alias + entorno
   suffix = "${var.owner_alias}-${var.environment}"
 
   # Nombre del Storage Account: solo minúsculas y números, max 24 chars
-  # "st" + alias (max 10) + env (max 4) + hash (6) = max 22 chars
+  # "st" + alias (max 10) + env (3) + hash (6) = max 21 chars
   storage_name = "st${replace(substr(var.owner_alias, 0, 10), "-", "")}${substr(var.environment, 0, 3)}${substr(md5(var.resource_group_name), 0, 6)}"
 
   # Tags comunes — la política OPA verifica que todos existan
@@ -43,7 +42,6 @@ locals {
 }
 
 # ── Módulo 1: Log Analytics Workspace ────────────────────────
-# Se despliega primero porque container_apps lo necesita
 module "log_analytics" {
   source = "../../modules/log-analytics"
 
@@ -69,16 +67,15 @@ module "storage" {
 module "container_apps" {
   source = "../../modules/container-apps"
 
-  name                       = local.suffix
+  name                       = "ca-${local.suffix}"
   resource_group_name        = var.resource_group_name
   location                   = var.location
   environment                = var.environment
   log_analytics_workspace_id = module.log_analytics.workspace_id
-  storage_endpoint           = module.storage.primary_blob_endpoint
+  storage_account_name       = module.storage.storage_account_name
   container_image            = var.container_image
-  container_cpu              = var.container_cpu
-  container_memory           = var.container_memory
-  min_replicas               = var.min_replicas
+  cpu                        = var.container_cpu
+  memory                     = var.container_memory
   max_replicas               = var.max_replicas
   tags                       = local.common_tags
 }

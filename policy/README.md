@@ -37,9 +37,19 @@ terraform plan → plan.json → conftest test → ✅ PASS → terraform apply
 brew install conftest
 
 # Linux (64-bit)
-sudo wget https://github.com/open-policy-agent/conftest/releases/download/v0.49.0/conftest_0.49.0_Linux_x86_64.tar.gz
-sudo tar -xzf conftest_0.49.0_Linux_x86_64.tar.gz
-sudo mv conftest /usr/local/bin/
+wget https://github.com/open-policy-agent/conftest/releases/download/v0.49.0/conftest_0.49.0_Linux_x86_64.tar.gz
+tar -xzf conftest_0.49.0_Linux_x86_64.tar.gz
+# mv conftest /usr/local/bin/
+mkdir -p ~/.local/bin
+mv conftest ~/.local/bin/
+
+# Agregar al PATH si no está ya
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+# Verificar
+conftest --version
+
 
 # Windows (Chocolatey)
 choco install conftest

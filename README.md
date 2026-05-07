@@ -20,31 +20,31 @@ Una aplicación containerizada con observabilidad integrada, usando **módulos T
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │  Azure Resource Group  (asignado por el docente — ej: rg-alumno-01)     │
-│                                                                          │
+│                                                                         │
 │  ┌─────────────────────────────────────────────────────────────────┐    │
-│  │              Log Analytics Workspace                             │    │
-│  │         (observabilidad y logs centralizados)                    │    │
-│  │         module "log_analytics"                                   │    │
+│  │              Log Analytics Workspace                            │    │
+│  │         (observabilidad y logs centralizados)                   │    │
+│  │         module "log_analytics"                                  │    │
 │  └───────────────────────────┬─────────────────────────────────────┘    │
-│                              │ diagnósticos & métricas                   │
-│                              ▼                                           │
+│                              │ diagnósticos & métricas                  │
+│                              ▼                                          │
 │  ┌─────────────────────────────────────────────────────────────────┐    │
-│  │           Azure Container Apps Environment                       │    │
-│  │                                                                  │    │
+│  │           Azure Container Apps Environment                      │    │
+│  │                                                                 │    │
 │  │   ┌───────────────────────────────────────────────────────┐     │    │
-│  │   │          Container App (nginx:alpine)                  │     │    │
+│  │   │          Container App (nginx:alpine)                 │     │    │
 │  │   │          CPU: 0.25 vCPU  |  RAM: 0.5 Gi               │     │    │
-│  │   │          Réplicas: 1 – 3  (auto-scaling por HTTP)      │     │    │
-│  │   │          Puerto expuesto: 80 (acceso externo)          │     │    │
+│  │   │          Réplicas: 1 – 3  (auto-scaling por HTTP)     │     │    │
+│  │   │          Puerto expuesto: 80 (acceso externo)         │     │    │
 │  │   └───────────────────────────────────────────────────────┘     │    │
-│  │         module "container_apps"                                  │    │
+│  │         module "container_apps"                                 │    │
 │  └─────────────────────────────────────────────────────────────────┘    │
-│                                                                          │
+│                                                                         │
 │  ┌─────────────────────────────────────────────────────────────────┐    │
-│  │              Storage Account (Standard_LRS)                      │    │
-│  │              Contenedor de blobs: "app-assets"                   │    │
-│  │              Acceso público deshabilitado                        │    │
-│  │              module "storage"                                    │    │
+│  │              Storage Account (Standard_LRS)                     │    │
+│  │              Contenedor de blobs: "app-assets"                  │    │
+│  │              Acceso público deshabilitado                       │    │
+│  │              module "storage"                                   │    │
 │  └─────────────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
